@@ -50,7 +50,7 @@ class TasksController extends Controller {
 				$vtodo = Helper::parseVTODO($task['calendardata']);
 				try {
 					$task_data = Helper::arrayForJSON($task['id'], $vtodo, $user_timezone);
-					$task_data['calendarid'] = $calendar['id'];
+					$task_data['calendarid'] = (string)$calendar['id'];
 					$task_data['calendarcolor'] = $calendar['calendarcolor'];
 					$tasks[] = $task_data;
 				} catch(\Exception $e) {
@@ -198,7 +198,7 @@ class TasksController extends Controller {
 	 */
 	public function addTask(){
 		$taskName = $this->params('name');
-		$calendarId = $this->params('calendarID');
+		$calendarId = (string)$this->params('calendarID');
 		$starred = $this->params('starred');
 		$due = $this->params('due');
 		$start = $this->params('start');
@@ -262,11 +262,11 @@ class TasksController extends Controller {
 	 */
 	public function setTaskCalendar(){
 		$taskId = $this->params('taskID');
-		$calendarId = $this->params('calendarID');
+		$calendarId = (string)$this->params('calendarID');
 		$response = new JSONResponse();
 		try {
 			$data = \OC_Calendar_App::getEventObject($taskId);
-			if ($data['calendarid'] != $calendarId) {
+			if ((string)$data['calendarid'] != $calendarId) {
 				\OC_Calendar_Object::moveToCalendar($taskId, $calendarId);
 			}
 		} catch(\Exception $e) {
