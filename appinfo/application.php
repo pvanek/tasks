@@ -30,6 +30,7 @@ use \OCA\Tasks\Controller\CollectionsController;
 use \OCA\Tasks\Controller\ListsController;
 use \OCA\Tasks\Controller\SettingsController;
 use \OCA\Tasks\Controller\TasksController;
+use \OCA\Tasks\Controller\RESTApiController;
 
 
 class Application extends App {
@@ -85,6 +86,11 @@ class Application extends App {
 				$c->query('UserId')
 			);
 		});
+        
+        // REST API
+        $container->registerService('RESTApiController', function($c) {
+            return new RESTApiController($c->query('AppName'), $c->query('Request'));
+        });
 
 
 		/**

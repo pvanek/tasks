@@ -63,4 +63,11 @@ $application->registerRoutes($this, array('routes' => array(
 	// settings
 	array('name' => 'settings#get',	'url' => '/settings', 'verb' => 'GET'),
 	array('name' => 'settings#set', 'url' => '/settings/{type}/{setting}/{value}', 'verb' => 'POST'),
+    
+    // REST API
+    array('name' => 'api#preflighted_cors',
+          'url' => '/api/1.0/tasks/{path}',
+          'verb' => 'OPTIONS',
+          'requireemnts' => array('path' => '.+')
+        ),
 )));
